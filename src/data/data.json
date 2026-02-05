@@ -1,0 +1,146 @@
+{
+  "user": {
+    "id": "u_101",
+    "name": "John Doe",
+    "email": "john.doe@example.com"
+  },
+  "todos": [
+    {
+      "id": "t_001",
+      "title": "Finish Angular task",
+      "description": "Complete the dynamic form validation logic by handling conditional validators, cross-field dependencies, async validation for backend checks, proper error message mapping, and ensuring that validation states persist correctly when navigating between steps or reloading cached form data.",
+      "completed": false,
+      "priority": "high",
+      "dueDate": "2026-02-05",
+      "createdAt": "2026-02-01T10:15:00Z"
+    },
+    {
+      "id": "t_002",
+      "title": "Review PRs",
+      "description": "Check all pending pull requests on GitHub including code style consistency, architectural correctness, edge-case handling, performance implications, test coverage adequacy, backward compatibility, and ensure that all CI checks are passing before approval or requesting changes.",
+      "completed": true,
+      "priority": "medium",
+      "dueDate": "2026-02-02",
+      "createdAt": "2026-01-31T14:30:00Z"
+    },
+    {
+      "id": "t_003",
+      "title": "Buy groceries",
+      "description": "Purchase all required household groceries including milk, eggs, bread, fruits, vegetables, cooking oil, snacks, and emergency supplies while checking expiration dates, comparing prices, and avoiding unnecessary impulse purchases.",
+      "completed": false,
+      "priority": "low",
+      "dueDate": "2026-02-03",
+      "createdAt": "2026-02-02T08:45:00Z"
+    },
+    {
+      "id": "t_004",
+      "title": "Prepare sprint report",
+      "description": "Compile a detailed sprint report summarizing completed tasks, partially finished work, pending backlog items, encountered blockers, velocity metrics, bug statistics, and overall team performance insights for stakeholder review.",
+      "completed": false,
+      "priority": "high",
+      "dueDate": "2026-02-06",
+      "createdAt": "2026-02-02T09:10:00Z"
+    },
+    {
+      "id": "t_005",
+      "title": "Team meeting",
+      "description": "Attend the weekly team sync meeting to discuss sprint progress, review upcoming priorities, align on technical decisions, clarify requirements, raise concerns, and document action items for follow-up.",
+      "completed": true,
+      "priority": "medium",
+      "dueDate": "2026-02-01",
+      "createdAt": "2026-01-30T11:00:00Z"
+    },
+
+    {
+      "id": "t_006",
+      "title": "Fix login bug",
+      "description": "Investigate and resolve the login token refresh issue affecting session persistence, including debugging JWT expiry handling, refresh token rotation, race conditions during parallel requests, and regression testing across browsers.",
+      "completed": false,
+      "priority": "high",
+      "dueDate": "2026-02-04",
+      "createdAt": "2026-02-01T12:20:00Z"
+    },
+    {
+      "id": "t_007",
+      "title": "Update README",
+      "description": "Update the project README with clear setup instructions, environment variable definitions, local development steps, troubleshooting tips, deployment notes, and contribution guidelines for new developers.",
+      "completed": true,
+      "priority": "low",
+      "dueDate": "2026-01-30",
+      "createdAt": "2026-01-28T16:00:00Z"
+    },
+    {
+      "id": "t_008",
+      "title": "Refactor services",
+      "description": "Refactor frontend service layers to remove duplicated API logic, improve separation of concerns, standardize error handling, simplify method signatures, and ensure easier maintainability and scalability.",
+      "completed": false,
+      "priority": "medium",
+      "dueDate": "2026-02-07",
+      "createdAt": "2026-02-03T09:30:00Z"
+    },
+    {
+      "id": "t_009",
+      "title": "Write unit tests",
+      "description": "Write comprehensive unit tests covering core business logic, edge cases, failure scenarios, mocked dependencies, and asynchronous flows with the goal of increasing overall test coverage to at least eighty percent.",
+      "completed": false,
+      "priority": "high",
+      "dueDate": "2026-02-08",
+      "createdAt": "2026-02-03T10:10:00Z"
+    },
+    {
+      "id": "t_010",
+      "title": "Push hotfix",
+      "description": "Deploy a critical hotfix to production after validating the patch in staging, running smoke tests, confirming rollback readiness, monitoring logs post-deployment, and notifying stakeholders about the fix.",
+      "completed": true,
+      "priority": "high",
+      "dueDate": "2026-02-01",
+      "createdAt": "2026-01-31T18:40:00Z"
+    },
+
+    {
+      "id": "t_011",
+      "title": "Optimize database queries",
+      "description": "Analyze slow database queries, add or adjust indexes, refactor joins, reduce unnecessary data fetching, and validate improvements using query execution plans and performance benchmarks.",
+      "completed": false,
+      "priority": "medium",
+      "dueDate": "2026-02-10",
+      "createdAt": "2026-02-04T09:00:00Z"
+    },
+    {
+      "id": "t_012",
+      "title": "Code review",
+      "description": "Perform an in-depth code review of teammate changes, ensuring adherence to coding standards, architectural patterns, performance best practices, readability, test coverage, and long-term maintainability.",
+      "completed": true,
+      "priority": "medium",
+      "dueDate": "2026-02-03",
+      "createdAt": "2026-02-01T15:00:00Z"
+    },
+    {
+      "id": "t_013",
+      "title": "Design discussion",
+      "description": "Participate in a detailed design discussion covering micro-frontend boundaries, shared dependencies, build pipelines, runtime integration, deployment strategy, and long-term scalability considerations.",
+      "completed": false,
+      "priority": "high",
+      "dueDate": "2026-02-09",
+      "createdAt": "2026-02-04T11:20:00Z"
+    },
+    {
+      "id": "t_014",
+      "title": "Clean workspace",
+      "description": "Organize physical desk and digital workspace by archiving old files, deleting unused assets, arranging folders logically, and ensuring a distraction-free working environment.",
+      "completed": true,
+      "priority": "low",
+      "dueDate": "2026-02-02",
+      "createdAt": "2026-01-29T08:00:00Z"
+    },
+    {
+      "id": "t_015",
+      "title": "Backup database",
+      "description": "Create a secure and verified backup of the production database, validate backup integrity, test restore procedures, and store copies in geographically redundant locations.",
+      "completed": false,
+      "priority": "high",
+      "dueDate": "2026-02-05",
+      "createdAt": "2026-02-02T22:00:00Z"
+    }
+  ]
+}
