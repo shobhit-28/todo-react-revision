@@ -3,7 +3,7 @@ import { IoChevronDownCircleOutline } from "react-icons/io5"
 import { AddTodoFormHook } from "./formHook"
 
 export const Form = () => {
-    const { openCloseTodo, isAddTodoFormOpen, register, handleSubmit, setValue, onSubmit, priority, errors, calendarRef } = AddTodoFormHook()
+    const { openCloseTodo, isAddTodoFormOpen, register, handleSubmit, setValue, onSubmit, priority, errors, calendarRef, currSelectedTodoForEditing } = AddTodoFormHook()
 
     return (
         <Dialog open={isAddTodoFormOpen} as="div" className="relative z-10 focus:outline-none" onClose={openCloseTodo}>
@@ -40,7 +40,7 @@ export const Form = () => {
                                 <div className="flex flex-col gap-1">
                                     <Menu>
                                         <MenuButton className="inline-flex w-full items-center justify-between gap-2 rounded-md border border-blue-500 bg-transparent px-3 py-2 text-sm">
-                                            {priority.charAt(0).toUpperCase() + priority.slice(1)}
+                                            {priority?.charAt(0).toUpperCase() + priority?.slice(1)}
                                             <IoChevronDownCircleOutline className="size-4 fill-white/60" />
                                         </MenuButton>
 
@@ -89,7 +89,7 @@ export const Form = () => {
                                 </div>
                             </div>
 
-                            <button type="submit" className="self-end p-2 text-sm border rounded-md border-blue-500">Save Task</button>
+                            <button type="submit" className="self-end p-2 text-sm border rounded-md border-blue-500">{currSelectedTodoForEditing.isEditing ? 'Update Todo' : 'Create Todo'}</button>
                         </form>
                     </DialogPanel>
                 </div>

@@ -5,7 +5,7 @@ import { TbEdit } from "react-icons/tb"
 import { AiOutlineDelete } from "react-icons/ai"
 
 export const TodoCard = ({ todo }) => {
-    const { isCalendarOpen, setIsCalendarOpen, priorityStyles, processDate, toggleTodo, closeCalendar, deletetodo } = TodoHook(todo)
+    const { isCalendarOpen, setIsCalendarOpen, priorityStyles, processDate, toggleTodo, closeCalendar, deletetodo, editTodo } = TodoHook(todo)
 
     return (
         <>
@@ -14,7 +14,7 @@ export const TodoCard = ({ todo }) => {
                     {todo.title}
                 </h1>
                 <div className="absolute top-2 right-2 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <button className="text-indigo-500"><TbEdit /></button>
+                    <button className="text-indigo-500" onClick={() => editTodo()}><TbEdit /></button>
                     <button className="text-red-500" onClick={() => deletetodo()}><AiOutlineDelete /></button>
                 </div>
                 <div className="flex items-center justify-between">

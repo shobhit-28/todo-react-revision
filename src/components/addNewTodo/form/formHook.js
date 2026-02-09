@@ -4,15 +4,7 @@ import { useForm, useWatch } from "react-hook-form"
 import flatpickr from "flatpickr"
 
 export const AddTodoFormHook = () => {
-    const { openCloseTodo, isAddTodoFormOpen, addNewTodo } = useContext(TodoContext)
-
-    const getTodaysDate = () => {
-        const date = new Date("Mon Feb 09 2026 12:37:05 GMT+0530")
-
-        return date.getFullYear() + "-" +
-            String(date.getMonth() + 1).padStart(2, "0") + "-" +
-            String(date.getDate()).padStart(2, "0")
-    }
+    const { openCloseTodo, isAddTodoFormOpen, addNewTodo, defaultTodoData, currSelectedTodoForEditing, updateTodo } = useContext(TodoContext)
 
     const {
         register,
@@ -21,20 +13,17 @@ export const AddTodoFormHook = () => {
         setValue,
         control,
         reset
-    } = useForm({
-        defaultValues: {
-            title: "",
-            description: "",
-            completed: false,
-            priority: "medium",
-            dueDate: getTodaysDate()
-        }
-    })
+    } = useForm(
+        defaultTodoData
+    )
 
     const onSubmit = data => {
         if (Object.keys(errors).length === 0) {
-            console.log("FORM DATA:", data)
-            addNewTodo(data)
+            if (currSelectedTodoForEditing?.isEditing) {
+                updateTodo(data)
+            } else {
+                addNewTodo(data)
+            }
         }
     }
 
@@ -50,6 +39,14 @@ export const AddTodoFormHook = () => {
         control,
         name: "priority"
     })
+
+    useEffect(() => {
+        if (currSelectedTodoForEditing.isEditing) {
+            reset(currSelectedTodoForEditing.value)
+        } else {
+            reset(defaultTodoData)
+        }
+    }, [currSelectedTodoForEditing.isEditing, currSelectedTodoForEditing.value, defaultTodoData, reset])
 
     useEffect(() => {
         if (!isAddTodoFormOpen) {
@@ -72,5 +69,5 @@ export const AddTodoFormHook = () => {
         return () => cancelAnimationFrame(id)
     }, [dueDate, isAddTodoFormOpen, reset, setValue])
 
-    return { openCloseTodo, isAddTodoFormOpen, register, handleSubmit, setValue, onSubmit, priority, errors, calendarRef }
+    return { openCloseTodo, isAddTodoFormOpen, register, handleSubmit, setValue, onSubmit, priority, errors, calendarRef, currSelectedTodoForEditing }
 }
