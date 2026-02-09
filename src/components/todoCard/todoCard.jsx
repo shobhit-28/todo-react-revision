@@ -1,16 +1,22 @@
 import { CiCalendar } from "react-icons/ci"
 import { Calendar } from "../calendar/calendar"
 import { TodoHook } from "./todoCardHook"
+import { TbEdit } from "react-icons/tb"
+import { AiOutlineDelete } from "react-icons/ai"
 
 export const TodoCard = ({ todo }) => {
-    const { isCalendarOpen, setIsCalendarOpen, priorityStyles, processDate, toggleTodo, closeCalendar } = TodoHook(todo)
+    const { isCalendarOpen, setIsCalendarOpen, priorityStyles, processDate, toggleTodo, closeCalendar, deletetodo } = TodoHook(todo)
 
     return (
         <>
-            <div className={`rounded w-72 p-4 flex flex-col gap-2 cursor-pointer ${todo.completed ? 'bg-green-100' : 'bg-orange-100'} shadow-[rgba(0,_0,_0,_0.24)_0px_1px_3px] duration-700 hover:shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]`}>
+            <div className={`group relative rounded w-72 p-4 flex flex-col gap-2 cursor-pointer ${todo.completed ? 'bg-green-100' : 'bg-orange-100'} shadow-[rgba(0,_0,_0,_0.24)_0px_1px_3px] duration-700 hover:shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]`}>
                 <h1 className="cursive">
                     {todo.title}
                 </h1>
+                <div className="absolute top-2 right-2 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <button className="text-indigo-500"><TbEdit /></button>
+                    <button className="text-red-500" onClick={() => deletetodo()}><AiOutlineDelete /></button>
+                </div>
                 <div className="flex items-center justify-between">
                     <div className={`text-[0.65rem] rounded-md font-semibold p-1 inline-block ${priorityStyles[todo.priority]?.badge}`}
                     >

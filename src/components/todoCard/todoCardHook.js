@@ -2,7 +2,7 @@ import { useContext, useState } from "react"
 import { TodoContext } from "../../context/todoContextContainer"
 
 export const TodoHook = (todo) => {
-    const { markTodoAsDone, changeTodoDueDate } = useContext(TodoContext)
+    const { markTodoAsDone, changeTodoDueDate, deleteTodo } = useContext(TodoContext)
     const [isCalendarOpen, setIsCalendarOpen] = useState(false)
 
     const priorityStyles = {
@@ -50,6 +50,9 @@ export const TodoHook = (todo) => {
         changeTodoDueDate(todo.id, date)
         setIsCalendarOpen(false)
     }
+    const deletetodo = () => {
+        deleteTodo(todo.id)
+    }
 
-    return { isCalendarOpen, setIsCalendarOpen, priorityStyles, processDate, toggleTodo, closeCalendar }
+    return { isCalendarOpen, setIsCalendarOpen, priorityStyles, processDate, toggleTodo, closeCalendar, deletetodo }
 }

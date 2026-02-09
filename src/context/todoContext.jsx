@@ -23,13 +23,16 @@ export const TodoContextHandler = ({ children }) => {
 
     const openCloseTodo = () => setIsAddTodoFormOpen(!isAddTodoFormOpen)
 
+    const deleteTodo = (todoId) => setTodoData(todoData.filter((todo) => todo.id !== todoId))
+
     return <TodoContext.Provider value={{
         todoData,
         markTodoAsDone,
         changeTodoDueDate,
         isAddTodoFormOpen,
         openCloseTodo,
-        addNewTodo
+        addNewTodo,
+        deleteTodo
     }}>
         {children}
     </TodoContext.Provider>
