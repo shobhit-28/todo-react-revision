@@ -7,7 +7,7 @@ export const HomePage = () => {
 
     return (
         <div className="page">
-            <div className='flex flex-wrap justify-around gap-3'>
+            <div className='flex flex-wrap justify-start gap-3'>
                 {todo.todoData.map((todo) => <TodoCard todo={todo} key={todo.id} />)}
             </div>
         </div>

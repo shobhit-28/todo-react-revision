@@ -22,7 +22,7 @@ export const TodoCard = ({ todo }) => {
     return (
         <>
             <div
-                className={`group relative rounded w-72 p-4 flex flex-col gap-2 cursor-pointer 
+                className={`group relative rounded w-full sm:w-[48%] md:w-[32%] lg:w-[24%] p-4 flex flex-col gap-2 cursor-pointer 
                     ${isSelected
                         ?
                         'bg-blue-100 ring-2 ring-blue-600 shadow-[rgba(0,_0,_255,_0.35)_0px_6px_14px]'
