@@ -5,8 +5,6 @@ import { useContext } from 'react'
 export const HomePage = () => {
     const todo = useContext(TodoContext)
 
-    console.log(todo)
-
     return (
         <div className="page">
             <div className='flex flex-wrap justify-around gap-3'>

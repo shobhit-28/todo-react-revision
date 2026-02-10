@@ -19,9 +19,16 @@ export const TodoContextHandler = ({ children }) => {
         dueDate: getTodaysDate()
     }
 
+    const tempObj = {}
+    for (let index = 0; index < todos.length; index++) {
+        tempObj[todos[index].id] = false
+    }
+
     const [todoData, setTodoData] = useState(todos)
     const [isAddTodoFormOpen, setIsAddTodoFormOpen] = useState(false)
     const [currSelectedTodoForEditing, setCurrSelectedTodoForEditing] = useState({ data: defaultTodoData, isEditing: isAddTodoFormOpen })
+    const [todoSelectedObj, setTodoSelectedObj] = useState(tempObj)
+    const [isAnySelected, setIsAnySelected] = useState(false)
 
     const markTodoAsDone = (todoId) => {
         setTodoData(todoData.map((todo) => todo.id === todoId ? { ...todo, completed: !todo.completed } : todo))
@@ -50,6 +57,18 @@ export const TodoContextHandler = ({ children }) => {
 
     const deleteTodo = (todoId) => setTodoData(todoData.filter((todo) => todo.id !== todoId))
 
+    const deleteMultiTodos = () => {
+        setTodoData(todoData.filter((todo) => !todoSelectedObj[todo.id]))
+        setTodoSelectedObj(prev => {
+            const updated = { ...prev }
+            Object.keys(updated).forEach(id => {
+                if (updated[id]) delete updated[id]
+            })
+            return updated
+        })
+        setIsAnySelected(false)
+    }
+
     const openTodoEditor = (todo) => {
         console.log(todo)
         setCurrSelectedTodoForEditing({ value: todo, isEditing: true })
@@ -67,6 +86,19 @@ export const TodoContextHandler = ({ children }) => {
         openCloseTodo()
     }
 
+    const selectTodo = todoId => {
+        setTodoSelectedObj(prev => {
+            const updated = {
+                ...prev,
+                [todoId]: !prev?.[todoId]
+            }
+
+            setIsAnySelected(Object.values(updated).some(Boolean))
+
+            return updated
+        })
+    }
+
     return <TodoContext.Provider value={{
         todoData,
         markTodoAsDone,
@@ -78,7 +110,11 @@ export const TodoContextHandler = ({ children }) => {
         openTodoEditor,
         currSelectedTodoForEditing,
         defaultTodoData,
-        updateTodo
+        updateTodo,
+        todoSelectedObj,
+        selectTodo,
+        isAnySelected,
+        deleteMultiTodos
     }}>
         {children}
     </TodoContext.Provider>
