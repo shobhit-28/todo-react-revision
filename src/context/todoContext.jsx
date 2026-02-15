@@ -35,7 +35,9 @@ export const TodoContextHandler = ({ children }) => {
     }
 
     const changeTodoDueDate = (todoId, newDate) => {
-        setTodoData(todoData.map((todo) => todo.id === todoId ? { ...todo, dueDate: newDate } : todo))
+        if (newDate) {
+            setTodoData(todoData.map((todo) => todo.id === todoId ? { ...todo, dueDate: newDate } : todo))
+        }
     }
 
     const addNewTodo = (todo) => {
