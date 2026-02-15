@@ -76,7 +76,7 @@ export const TodoCard = ({ todo }) => {
                     onClick={(e) => {
                         e.stopPropagation()
                         !isSelected &&
-                            toggleTodo(todo.id)
+                            toggleTodo(todo)
                     }}
                     className={`mt-auto self-end text-[0.65rem] px-2 py-1 rounded-md
                             ${todo.completed

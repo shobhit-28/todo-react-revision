@@ -1,8 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { todos } from '../data/data.json'
 import { TodoContext } from "./todoContextContainer";
+import axios from "axios";
 
 export const TodoContextHandler = ({ children }) => {
+    const baseTodoUrl = 'http://localhost:5000/todo'
+
     const getTodaysDate = () => {
         const date = new Date()
 
@@ -30,21 +33,31 @@ export const TodoContextHandler = ({ children }) => {
     const [todoSelectedObj, setTodoSelectedObj] = useState(tempObj)
     const [isAnySelected, setIsAnySelected] = useState(false)
 
-    const markTodoAsDone = (todoId) => {
-        setTodoData(todoData.map((todo) => todo.id === todoId ? { ...todo, completed: !todo.completed } : todo))
+    useEffect(() => {
+        axios.get(`${baseTodoUrl}/getTodos`).then(res => setTodoData(res.data)).catch((err) => console.error(err))
+    }, [])
+
+    const markTodoAsDone = (todoArg) => {
+        const updatedTodo = { ...todoArg, completed: !todoArg.completed }
+        updateTodoApiCall(updatedTodo).then(() => {
+            setTodoData(todoData.map((todo) => todo.id === updatedTodo?.id ? updatedTodo : todo))
+        }).catch((err) => console.error(err))
     }
 
-    const changeTodoDueDate = (todoId, newDate) => {
+    const changeTodoDueDate = (todoArg, newDate) => {
         if (newDate) {
-            setTodoData(todoData.map((todo) => todo.id === todoId ? { ...todo, dueDate: newDate } : todo))
+            const updatedTodo = { ...todoArg, dueDate: newDate }
+            updateTodoApiCall(updatedTodo).then(() => {
+                setTodoData(todoData.map((todo) => todo.id === updatedTodo?.id ? updatedTodo : todo))
+            }).catch((err) => console.error(err))
         }
     }
 
     const addNewTodo = (todo) => {
-        const now = new Date()
-        const iso = now.toISOString()
-        setTodoData([...todoData, { ...todo, id: `t_${todoData.length + 1}`, createdAt: iso }])
-        openCloseTodo()
+        axios.post(`${baseTodoUrl}/createTodo`, todo).then((res) => {
+            setTodoData([...todoData, { ...todo, id: res.data?.id, createdAt: res.data?.createdAt }])
+            openCloseTodo()
+        }).catch(err => console.error(err))
     }
 
     const openCloseTodo = () => {
@@ -57,18 +70,38 @@ export const TodoContextHandler = ({ children }) => {
         }
     }
 
-    const deleteTodo = (todoId) => setTodoData(todoData.filter((todo) => todo.id !== todoId))
+    const deleteTodo = (todoId) => deleteTodos([todoId]).then(() => {
+        setTodoData(todoData.filter((todo) => todo.id !== todoId))
+    }).catch((err) => console.error(err))
 
     const deleteMultiTodos = () => {
-        setTodoData(todoData.filter((todo) => !todoSelectedObj[todo.id]))
-        setTodoSelectedObj(prev => {
-            const updated = { ...prev }
-            Object.keys(updated).forEach(id => {
-                if (updated[id]) delete updated[id]
+        const processedTodoData = {
+            remainingTodos: [],
+            selectedIds: []
+        }
+        for (const todo of todoData) {
+            if (todoSelectedObj[todo.id]) {
+                processedTodoData['selectedIds'].push(todo.id)
+            } else {
+                processedTodoData['remainingTodos'].push(todo)
+            }
+        }
+        deleteTodos(processedTodoData.selectedIds).then(() => {
+            setTodoData(processedTodoData.remainingTodos)
+            setTodoSelectedObj(prev => {
+                const updated = { ...prev }
+                Object.keys(updated).forEach(id => {
+                    if (updated[id]) delete updated[id]
+                })
+                return updated
             })
-            return updated
-        })
-        setIsAnySelected(false)
+            setIsAnySelected(false)
+        }).catch(err => console.error(err))
+    }
+
+    const deleteTodos = (todoIds) => { 
+        console.log(todoIds)
+        return axios.delete(`${baseTodoUrl}/deleteTodos`, {data: todoIds})
     }
 
     const openTodoEditor = (todo) => {
@@ -78,15 +111,19 @@ export const TodoContextHandler = ({ children }) => {
     }
 
     const updateTodo = (updatedTodo) => {
-        setTodoData(todoData.map((todo) => {
-            if (todo.id === updatedTodo.id) {
-                return updatedTodo
-            } else {
-                return todo
-            }
-        }))
-        openCloseTodo()
+        updateTodoApiCall(updatedTodo).then(() => {
+            setTodoData(todoData.map((todo) => {
+                if (todo.id === updatedTodo.id) {
+                    return updatedTodo
+                } else {
+                    return todo
+                }
+            }))
+            openCloseTodo()
+        }).catch((err) => console.error(err))
     }
+
+    const updateTodoApiCall = (updatedTodo) => axios.put(`${baseTodoUrl}/updateTodo/${updatedTodo?.id}`, updatedTodo)
 
     const selectTodo = todoId => {
         setTodoSelectedObj(prev => {

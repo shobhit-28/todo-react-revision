@@ -44,12 +44,12 @@ export const TodoHook = (todo) => {
         }
     }
 
-    function toggleTodo(id) {
-        markTodoAsDone(id)
+    function toggleTodo(todo) {
+        markTodoAsDone(todo)
     }
 
     function closeCalendar(date) {
-        changeTodoDueDate(todo.id, date)
+        changeTodoDueDate(todo, date)
         setIsCalendarOpen(false)
     }
     const deletetodo = () => {
